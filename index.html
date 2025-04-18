@@ -14,7 +14,7 @@
       height: 250px;
       transition: width 1s, height 1s ease-in-out;
     }
-    #choice-container{
+    .choice-container{
       display: flex;
       flex-direction: column;
       text-align: center;
@@ -24,7 +24,8 @@
       flex-direction: row;
       justify-content: space-evenly;
       align-items: center;
-      height: 100vh;
+      height: 500px;
+
 
     }
     img:hover{
@@ -32,39 +33,79 @@
       height: 300px;
 
     }
+
+    #main{
+      display: flex;
+      flex-direction: column;
+    }
+
+    #bottom-box{
+      display: flex;
+      flex-direction: row;
+      text-align: center;
+      justify-content: space-evenly;
+      align-items: center;
+      background-color: red;
+      height: 50px;
+    }
   </style>
 </head>
 
 <body>
-  <div id="choices">
+  <div id="main">
+    <div id="choices">
 
-    <div id="choice-container" onclick="getHumanChoice('Rock')">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3E_tf23oVS8wKfopnpRn4zfNSGx_YqyX53g&s" alt="Rock">
-      <p>Rock</p>
-    </div>
+      <div class="choice-container" onclick="getHumanChoice('Rock'); playRound();">
+        <button>
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3E_tf23oVS8wKfopnpRn4zfNSGx_YqyX53g&s" alt="Rock">
+        </button>
+        
+        <p>Rock</p>
+      </div>
+      
+      <div class="choice-container"onclick="getHumanChoice('Paper'); playRound();">
+        <button>
+          <img src="https://img.fruugo.com/product/4/25/1781072254_max.jpg" alt="paper">
+        </button>
+
+        <p>Paper</p>
+      </div>
+  
+      <div class="choice-container" onclick="getHumanChoice('Scissor'); playRound();">
+        <button>
+          <img src="https://img.freepik.com/free-photo/women-with-mugs-smiling-talking_23-2147771691.jpg" alt="Scissor">
+        </button>
+        <p>Scissor</p>
+      </div>
     
-    <div id="choice-container" onclick="getHumanChoice('Paper')">
-      <img src="https://img.fruugo.com/product/4/25/1781072254_max.jpg" alt="paper">
-      <p>Paper</p>
+      
+  
     </div>
 
-    <div id="choice-container" onclick="getHumanChoice('Scissor')">
-      <img src="https://img.freepik.com/free-photo/women-with-mugs-smiling-talking_23-2147771691.jpg" alt="Scissor">
-      <p>Scissor</p>
+    <div id="bottom-box">
+      <button onclick="reset()">Reset</button>
+      <p id="p-score"></p>
+        <p id="ai-score"></p>
+        <p id="comp-choice"></p>
+        <p id="human-choice"></p>
+        <p id="round-status"></p>
     </div>
-
-    
 
   </div>
-
+  
+ 
   
 </body>
 
 
 <script>
+    let humanScoreElement = document.getElementById("p-score");
+    let computerScoreElement = document.getElementById("ai-score");
     let humanScore = 0;
-    let computerScore = 0; 
+    let computerScore = 0;
     let humanChoice ='';
+    humanScoreElement.textContent = `Human Score: ${humanScore}`;
+      computerScoreElement.textContent = `Computer Score: ${computerScore}`;
      function getComputerChoice() {
         let randomInt = Math.floor(Math.random() * 3); 
         let computerChoice = ""
@@ -85,45 +126,52 @@
        console.log("User picked:", humanChoice);
      }
      
+     function reset(){
+      humanScore = 0;
+      computerScore = 0;
+      humanScoreElement.textContent = `Human Score: ${humanScore}`;
+      computerScoreElement.textContent = `Computer Score: ${computerScore}`;
+      document.getElementById("comp-choice").textContent = ``;
+            document.getElementById("human-choice").textContent = ``;
+            document.getElementById("round-status").textContent = ``;
+     }
+     
     
-     function playRound(humanChoice, computerChoice){
-          if (humanChoice == "Rock" && computerChoice == "Scissor")
-          {
+     function playRound(){
+        const computerChoice = getComputerChoice(); 
+        console.log("Computer picked:", computerChoice);
+
+
+        if (!humanChoice) {
+          alert("Please make a selection first!");
+          return;
+        }
+        
+          if ((humanChoice == "Rock" && computerChoice == "Scissor")||(humanChoice == "Paper" && computerChoice == "Rock")||(humanChoice == "Scissor" && computerChoice == "Paper")){
+          
             console.log("Human Wins this round");
             humanScore++;
+            humanScoreElement.textContent = `Human Score: ${humanScore}`;
+            document.getElementById("comp-choice").textContent = `Computer chose: ${computerChoice}`;
+            document.getElementById("human-choice").textContent = `Human chose: ${humanChoice}`;
+            document.getElementById("round-status").textContent = `Human Won this Round`;
           }
-          else if (humanChoice == "Paper" && computerChoice == "Rock")
-          {
-            console.log("Human Wins this round");
-            humanScore++;
-          }
-          else if (humanChoice == "Scissor" && computerChoice == "Paper")
-          {
-            console.log("Human Wins this round");
-            humanScore++;
-          }
-          else if ( computerChoice== "Paper" && humanChoice == "Rock")
+          else if (( computerChoice== "Paper" && humanChoice == "Rock")||(computerChoice == "Scissor" && humanChoice == "Paper")||(computerChoice == "Rock" && humanChoice == "Scissor"))
           {
             console.log("Computer Wins this round");
             computerScore++;
-          }
-          else if ( computerChoice == "Scissor" && humanChoice == "Paper")
-          {
-            console.log("Computer Wins this round");
-            computerScore++;
-          }
-          else if ( computerChoice == "Rock" && humanChoice == "Scissors")
-          {
-            console.log("Computer Wins this round");
-            computerScore++;
+            computerScoreElement.textContent = `Computer Score: ${computerScore}`;
+            document.getElementById("comp-choice").textContent = `Computer chose: ${computerChoice}`;
+            document.getElementById("human-choice").textContent = `Human chose: ${humanChoice}`;
+            document.getElementById("round-status").textContent = `Computer Won this Round`;
           }
           else {
             console.log("Tie")
+            document.getElementById("round-status").textContent = `No one Won this Round`;
           }
-          
+          humanChoice = '';
+        }
 
-
-     }
     /* 
      function playGame(){
        
