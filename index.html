@@ -4,8 +4,58 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <style>
+    html, body {
+  margin: 0;
+  padding: 0;
+}
+    img{
+      width: 250px;
+      height: 250px;
+      transition: width 1s, height 1s ease-in-out;
+    }
+    #choice-container{
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+    }
+    #choices{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      align-items: center;
+      height: 100vh;
+
+    }
+    img:hover{
+      width: 300px;
+      height: 300px;
+
+    }
+  </style>
 </head>
+
 <body>
+  <div id="choices">
+
+    <div id="choice-container" onclick="getHumanChoice('Rock')">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3E_tf23oVS8wKfopnpRn4zfNSGx_YqyX53g&s" alt="Rock">
+      <p>Rock</p>
+    </div>
+    
+    <div id="choice-container" onclick="getHumanChoice('Paper')">
+      <img src="https://img.fruugo.com/product/4/25/1781072254_max.jpg" alt="paper">
+      <p>Paper</p>
+    </div>
+
+    <div id="choice-container" onclick="getHumanChoice('Scissor')">
+      <img src="https://img.freepik.com/free-photo/women-with-mugs-smiling-talking_23-2147771691.jpg" alt="Scissor">
+      <p>Scissor</p>
+    </div>
+
+    
+
+  </div>
 
   
 </body>
@@ -14,6 +64,7 @@
 <script>
     let humanScore = 0;
     let computerScore = 0; 
+    let humanChoice ='';
      function getComputerChoice() {
         let randomInt = Math.floor(Math.random() * 3); 
         let computerChoice = ""
@@ -30,9 +81,10 @@
      }
      
      function getHumanChoice(choice){
-        return choice = prompt("Rock, Paper, Scissor");
-        
+       humanChoice = choice;
+       console.log("User picked:", humanChoice);
      }
+     
     
      function playRound(humanChoice, computerChoice){
           if (humanChoice == "Rock" && computerChoice == "Scissor")
@@ -72,7 +124,7 @@
 
 
      }
-     
+    /* 
      function playGame(){
        
 
@@ -92,7 +144,12 @@
        }
 
      }
-      playGame();
+      playGame();*/
+      
+      /*function getHumanChoice(choice){
+        return choice = prompt("Rock, Paper, Scissor");
+        
+     }*/
   </script>
 
 
