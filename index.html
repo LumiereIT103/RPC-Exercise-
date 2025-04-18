@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  
+</body>
+
+
+<script>
+    let humanScore = 0;
+    let computerScore = 0; 
+     function getComputerChoice() {
+        let randomInt = Math.floor(Math.random() * 3); 
+        let computerChoice = ""
+        if (randomInt == 0) {
+           computerChoice = "Rock";
+        }
+        else if (randomInt == 1){
+           computerChoice = "Scissor"
+        }
+        else if (randomInt == 2){
+            computerChoice = "Paper"
+        }
+        return computerChoice;
+     }
+     
+     function getHumanChoice(choice){
+        return choice = prompt("Rock, Paper, Scissor");
+        
+     }
+    
+     function playRound(humanChoice, computerChoice){
+          if (humanChoice == "Rock" && computerChoice == "Scissor")
+          {
+            console.log("Human Wins this round");
+            humanScore++;
+          }
+          else if (humanChoice == "Paper" && computerChoice == "Rock")
+          {
+            console.log("Human Wins this round");
+            humanScore++;
+          }
+          else if (humanChoice == "Scissor" && computerChoice == "Paper")
+          {
+            console.log("Human Wins this round");
+            humanScore++;
+          }
+          else if ( computerChoice== "Paper" && humanChoice == "Rock")
+          {
+            console.log("Computer Wins this round");
+            computerScore++;
+          }
+          else if ( computerChoice == "Scissor" && humanChoice == "Paper")
+          {
+            console.log("Computer Wins this round");
+            computerScore++;
+          }
+          else if ( computerChoice == "Rock" && humanChoice == "Scissors")
+          {
+            console.log("Computer Wins this round");
+            computerScore++;
+          }
+          else {
+            console.log("Tie")
+          }
+          
+
+
+     }
+     
+     function playGame(){
+       
+
+       for(let i = 0; i<5; i++){
+        const humanSelection = getHumanChoice();
+       const computerSelection = getComputerChoice();
+       playRound(humanSelection, computerSelection);
+       }
+       
+       if(humanScore > computerScore){
+        console.log("Human Won this Game");
+       }
+       else if(computerScore>humanScore){
+        console.log("Computer Won this Game");
+        console.log("Computer Score:" + computerScore);
+        console.log("Human Score:" + humanScore);
+       }
+
+     }
+      playGame();
+  </script>
+
+
+</html>
