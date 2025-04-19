@@ -18,14 +18,16 @@
       display: flex;
       flex-direction: column;
       text-align: center;
+
+      margin-top: -200 px;
     }
     #choices{
       display: flex;
       flex-direction: row;
       justify-content: space-evenly;
       align-items: center;
-      height: 500px;
-
+      height: 475px;
+      margin-top:-50px;
 
     }
     img:hover{
@@ -37,6 +39,7 @@
     #main{
       display: flex;
       flex-direction: column;
+      text-align: center; 
     }
 
     #bottom-box{
@@ -45,52 +48,51 @@
       text-align: center;
       justify-content: space-evenly;
       align-items: center;
-      background-color: red;
-      height: 50px;
+
+      margin-top: -50px;
+      margin-bottom: -100px;
+    }
+    p, button{
+      font-size: 25px;
+    }
+    h1, p {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     }
   </style>
 </head>
 
 <body>
   <div id="main">
+    
+    <h1>Rock Paper Scissor</h1>
+    <h1 id="result">Player vs AI</h1>
     <div id="choices">
-
       <div class="choice-container" onclick="getHumanChoice('Rock'); playRound();">
         <button>
           <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3E_tf23oVS8wKfopnpRn4zfNSGx_YqyX53g&s" alt="Rock">
-        </button>
-        
+        </button> 
         <p>Rock</p>
       </div>
-      
       <div class="choice-container"onclick="getHumanChoice('Paper'); playRound();">
         <button>
           <img src="https://img.fruugo.com/product/4/25/1781072254_max.jpg" alt="paper">
         </button>
-
         <p>Paper</p>
-      </div>
-  
+      </div> 
       <div class="choice-container" onclick="getHumanChoice('Scissor'); playRound();">
         <button>
           <img src="https://img.freepik.com/free-photo/women-with-mugs-smiling-talking_23-2147771691.jpg" alt="Scissor">
         </button>
         <p>Scissor</p>
-      </div>
-    
-      
-  
+      </div> 
     </div>
-
     <div id="bottom-box">
       <button onclick="reset()">Reset</button>
       <p id="p-score"></p>
         <p id="ai-score"></p>
         <p id="comp-choice"></p>
         <p id="human-choice"></p>
-        <p id="round-status"></p>
     </div>
-
   </div>
   
  
@@ -124,16 +126,20 @@
      function getHumanChoice(choice){
        humanChoice = choice;
        console.log("User picked:", humanChoice);
+       document.body.style.backgroundColor = "White";
      }
      
      function reset(){
-      humanScore = 0;
-      computerScore = 0;
-      humanScoreElement.textContent = `Human Score: ${humanScore}`;
-      computerScoreElement.textContent = `Computer Score: ${computerScore}`;
-      document.getElementById("comp-choice").textContent = ``;
+            humanScore = 0;
+            computerScore = 0;
+            humanScoreElement.textContent = `Human Score: ${humanScore}`;
+            computerScoreElement.textContent = `Computer Score: ${computerScore}`;
+            document.getElementById("comp-choice").textContent = ``;
             document.getElementById("human-choice").textContent = ``;
-            document.getElementById("round-status").textContent = ``;
+            document.getElementById("result").textContent = `Player vs AI`;
+            document.body.style.backgroundColor = "White";
+            
+
      }
      
     
@@ -154,7 +160,9 @@
             humanScoreElement.textContent = `Human Score: ${humanScore}`;
             document.getElementById("comp-choice").textContent = `Computer chose: ${computerChoice}`;
             document.getElementById("human-choice").textContent = `Human chose: ${humanChoice}`;
-            document.getElementById("round-status").textContent = `Human Won this Round`;
+            document.body.style.backgroundColor = "Blue";
+            document.getElementById("result").textContent = `Human Won this Round`;
+
           }
           else if (( computerChoice== "Paper" && humanChoice == "Rock")||(computerChoice == "Scissor" && humanChoice == "Paper")||(computerChoice == "Rock" && humanChoice == "Scissor"))
           {
@@ -163,11 +171,15 @@
             computerScoreElement.textContent = `Computer Score: ${computerScore}`;
             document.getElementById("comp-choice").textContent = `Computer chose: ${computerChoice}`;
             document.getElementById("human-choice").textContent = `Human chose: ${humanChoice}`;
-            document.getElementById("round-status").textContent = `Computer Won this Round`;
+
+            document.body.style.backgroundColor = "Red";
+            document.getElementById("result").textContent = `Computer Won this Round`;
+
           }
           else {
             console.log("Tie")
-            document.getElementById("round-status").textContent = `No one Won this Round`;
+            document.body.style.backgroundColor = "White";
+            document.getElementById("result").textContent = `No one Won this Round`;
           }
           humanChoice = '';
         }
